@@ -7,8 +7,8 @@ public class DamageTextPool : MonoBehaviour
 {
     public static DamageTextPool instance;
     public DamageText damageText;
-    public int poolSize = 10;
 
+    private int poolSize = 10;
     private Stack<DamageText> damageTextAll = new Stack<DamageText>();
     private Stack<DamageText> damageTextFree = new Stack<DamageText>();
 

@@ -2674,11 +2674,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1811211764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b4bf7458d0706e4088fc64639a9d3c0, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cd06dc4332352a40ba1bda55bf5eee1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 872349297666353507, guid: c50da080e95deec41bdddd2f7d2117b4, type: 3}
-  poolSize: 10
 --- !u!4 &1811211766
 Transform:
   m_ObjectHideFlags: 0
@@ -2727,7 +2726,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damageText: {fileID: 1324459393371978282, guid: 97e05e14d4a89af48a614d529c1331d2, type: 3}
-  poolSize: 50
 --- !u!114 &1811211769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2737,9 +2735,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1811211764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76a4e5c7f257e8c4c8259e7dae3a31c8, type: 3}
+  m_Script: {fileID: 11500000, guid: eafd50d2d661c5342b81050e06298115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterPrefab: {fileID: 1757248004669818144, guid: ed897536f92b75b4fb55040d83033a7b, type: 3}
 --- !u!1 &1884429636
 GameObject:
   m_ObjectHideFlags: 0

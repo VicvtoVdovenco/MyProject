@@ -15,3 +15,5 @@ MonoBehaviour:
   _moveSpeed: 4
   _damage: 5
   _maxHealth: 30
+  navRadius: 0.25
+  navPriority: 50

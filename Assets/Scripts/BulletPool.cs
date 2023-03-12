@@ -6,8 +6,8 @@ public class BulletPool : MonoBehaviour
 {
     public static BulletPool instance;
     public Bullet bulletPrefab;
-    public int poolSize = 20;
 
+    private int poolSize = 20;
     private Stack<Bullet> bulletsAll = new Stack<Bullet>();
     private Stack<Bullet> bulletsFree = new Stack<Bullet>();
 

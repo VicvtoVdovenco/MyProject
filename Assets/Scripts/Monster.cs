@@ -37,9 +37,12 @@ public class Monster : MonoBehaviour
         maxHealth = monsterStats.MaxHealth;
 
         agent = GetComponent<NavMeshAgent>();
+        agent.radius = monsterStats.NavRadius;
+        agent.speed = moveSpeed;
+        agent.avoidancePriority = monsterStats.NavPriority;
+
         animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
-        agent.speed = moveSpeed;
 
         currentHealth = maxHealth;
 
