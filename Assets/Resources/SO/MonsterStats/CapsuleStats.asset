@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ad107b57e36f240b0d35fe65ab60ca, type: 3}
   m_Name: CapsuleStats
   m_EditorClassIdentifier: 
+  monsterType: 0
   _moveSpeed: 2
   _damage: 10
   _maxHealth: 100
   navRadius: 0.35
   navPriority: 30
+  skin: {fileID: 2757491738497546081, guid: bd4d69bdca0809c47b2c6b16f8d4819a, type: 3}

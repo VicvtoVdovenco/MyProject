@@ -9,13 +9,6 @@ using UnityEngine.AI;
 
 public class Level : MonoBehaviour
 {
-    public enum MonsterType
-    {
-        CapsuleMonster,
-        SphereMonster,
-        CubeMonster
-    }
-
     [Serializable]
     public class SpawnWave
     {
@@ -24,6 +17,8 @@ public class Level : MonoBehaviour
         public float spawnOffset;
         public float initialOffset;
     }
+
+    private Dictionary<MonsterType, SOMonsterStats> monsterStatsDict = new Dictionary<MonsterType, SOMonsterStats>();
 
     [SerializeField] public SpawnWave[] spawnWaves;
     [SerializeField] private GameObject[] monsterPrefabs;
@@ -37,6 +32,13 @@ public class Level : MonoBehaviour
 
     private void Awake()
     {
+        SOMonsterStats[] allMonsterStats = Resources.LoadAll<SOMonsterStats>("SO/MonsterStats");
+
+        foreach (SOMonsterStats monsterStats in allMonsterStats)
+        {
+            monsterStatsDict[monsterStats.MonsterType] = monsterStats;
+        }
+
         for (int i = 0; i < spawnWaves.Length; i++)
         {
             _monsterCount += spawnWaves[i].numberOfMonsters;
@@ -54,7 +56,6 @@ public class Level : MonoBehaviour
                 {
                     StartCoroutine(SpawnWaves(i));
                 }
-
             }
         }
     }
@@ -66,12 +67,38 @@ public class Level : MonoBehaviour
         for (int j = 0; j < spawnWaves[i].numberOfMonsters; j++)
         {
             int spawnIndex = URandom.Range(0, spawnLocation.Length);
-            GameObject monsterPrefab = monsterPrefabs[(int)spawnWaves[i].monsterType];
-            GameObject monster = Instantiate(monsterPrefab, spawnLocation[spawnIndex].position, Quaternion.Euler(0, 180f, 0));
+
+            //GameObject monsterPrefab = monsterPrefabs[(int)spawnWaves[i].monsterType];
+
+            Monster monster = MonsterPool.instance.GetMonster();
+            monster.gameObject.transform.position = spawnLocation[spawnIndex].position;
+            monster.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+
+            if (monsterStatsDict.TryGetValue(spawnWaves[i].monsterType, out SOMonsterStats stats))
+            {
+                monster.monsterStats = stats;
+            }
+            MonsterSkin monsterSkin = MonsterSkinPool.instance.GetMonsterSkin(monster.monsterStats.MonsterType);
+            GameObject monsterSkinGO = Instantiate(monsterSkin.gameObject, monster.transform);
+            monster.monsterSkin = monsterSkinGO.GetComponent<MonsterSkin>();
+            //monsterSkinGO.gameObject.transform.SetParent(monster.transform);
+            //GameObject monsterSkin = Instantiate(stats.Skin, monster.gameObject.transform);
+            //monsterSkin.transform.localPosition = Vector3.zero;
+
             NavAgentController agentScript = monster.GetComponent<NavAgentController>();
             agentScript.agentDestination = _destinations[spawnIndex].transform;
             yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
         }
+
+        //for (int j = 0; j < spawnWaves[i].numberOfMonsters; j++)
+        //{
+        //    int spawnIndex = URandom.Range(0, spawnLocation.Length);
+        //    GameObject monsterPrefab = monsterPrefabs[(int)spawnWaves[i].monsterType];
+        //    GameObject monster = Instantiate(monsterPrefab, spawnLocation[spawnIndex].position, Quaternion.Euler(0, 180f, 0));
+        //    NavAgentController agentScript = monster.GetComponent<NavAgentController>();
+        //    agentScript.agentDestination = _destinations[spawnIndex].transform;
+        //    yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
+        //}
     }
 
 }

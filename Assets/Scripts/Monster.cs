@@ -11,22 +11,23 @@ public class Monster : MonoBehaviour
     public static UnityEvent<float> monsterDealsDamageToPlayer = new UnityEvent<float>();
     public static UnityEvent monsterInPortal = new UnityEvent();
     public static UnityEvent monsterKilled = new UnityEvent();
+    public SOMonsterStats monsterStats;
+    public MonsterSkin monsterSkin;
 
     [SerializeField] LayerMask mask;
     [SerializeField] NavMeshAgent agent;
-    [SerializeField] SOMonsterStats monsterStats;
     [SerializeField] float moveSpeed;
     [SerializeField] float damage;
     [SerializeField] float maxHealth;
     private float currentHealth;
-    private Animator animator;
+    //private Animator animator;
     private bool isGetHit;
     private float getHitChance = 25;
     Collider col;
 
     [SerializeField] Image healthFG;
     [SerializeField] RectTransform canvasRect;
-    [SerializeField] Transform damageTextPos;    
+    [SerializeField] Transform damageTextPos;
     [SerializeField] ParticleSystem getHitParticles;
 
 
@@ -40,27 +41,25 @@ public class Monster : MonoBehaviour
         agent.radius = monsterStats.NavRadius;
         agent.speed = moveSpeed;
         agent.avoidancePriority = monsterStats.NavPriority;
-
-        animator = GetComponent<Animator>();
         col = GetComponent<Collider>();
-
         currentHealth = maxHealth;
-
         canvasRect.forward = MainCam.Instance.transform.forward;
+    }
+    private void Update()
+    {
+        if (monsterSkin.isPooled) ReturnToPool();
     }
 
     private IEnumerator WaitGetHitAnimation()
     {
         isGetHit = true;
-        animator.SetInteger("state", 2);
-        var state = animator.GetCurrentAnimatorStateInfo(0);
-        float length = state.length;
+        monsterSkin.GetHitAnim();
         agent.speed = moveSpeed * 0.2f;
 
-        yield return new WaitForSeconds(length);
+        yield return new WaitForSeconds(monsterSkin.AnimStateLength());
 
         isGetHit = false;
-        animator.SetInteger("state", 3);
+        monsterSkin.MoveAnim();
         agent.speed = moveSpeed;
 
     }
@@ -85,14 +84,13 @@ public class Monster : MonoBehaviour
         healthFG.fillAmount = (float)currentHealth / maxHealth;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         monsterInPortal.Invoke();
         if (other.gameObject.tag == "Portal")
         {
             monsterDealsDamageToPlayer.Invoke(damage);
-            Destruction();
+            ReturnToPool();
         }
     }
 
@@ -101,16 +99,14 @@ public class Monster : MonoBehaviour
         monsterKilled.Invoke();
         agent.speed = 0f;
         moveSpeed = 0f;
-        animator.SetInteger("state", 1);
+        monsterSkin.DeathAnim();
         col.enabled = false;
     }
 
-    private void Destruction()
+    private void ReturnToPool()
     {
-        Destroy(gameObject);
+        MonsterPool.instance.ReturnMonster(this);
     }
-
-
 }
 
 

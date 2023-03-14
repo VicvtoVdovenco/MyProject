@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ad107b57e36f240b0d35fe65ab60ca, type: 3}
   m_Name: CubeStats
   m_EditorClassIdentifier: 
+  monsterType: 2
   _moveSpeed: 1
   _damage: 25
   _maxHealth: 250
   navRadius: 0.45
   navPriority: 10
+  skin: {fileID: 99940278666699506, guid: 0d652dcc0555bb244bf780c156e309ea, type: 3}

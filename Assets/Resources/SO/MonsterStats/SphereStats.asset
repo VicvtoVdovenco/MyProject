@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4ad107b57e36f240b0d35fe65ab60ca, type: 3}
   m_Name: SphereStats
   m_EditorClassIdentifier: 
+  monsterType: 1
   _moveSpeed: 4
   _damage: 5
   _maxHealth: 30
   navRadius: 0.25
   navPriority: 50
+  skin: {fileID: 8919095134026881678, guid: 942b989316dc30248ada0ac47aba2dae, type: 3}

@@ -230,22 +230,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnWaves:
-  - monsterType: 1
-    numberOfMonsters: 12
-    spawnOffset: 5
-    initialOffset: 0
   - monsterType: 0
-    numberOfMonsters: 7
-    spawnOffset: 7
+    numberOfMonsters: 5
+    spawnOffset: 2
+    initialOffset: 0
+  - monsterType: 1
+    numberOfMonsters: 3
+    spawnOffset: 5
     initialOffset: 3
   - monsterType: 2
-    numberOfMonsters: 4
-    spawnOffset: 10
-    initialOffset: 10
+    numberOfMonsters: 3
+    spawnOffset: 6
+    initialOffset: 3
   monsterPrefabs:
-  - {fileID: 4063363244779066838, guid: d3a424121c04bec4fb1e3946b731e12c, type: 3}
-  - {fileID: 8758156697412546393, guid: a482e7114ed3cbf47879b9076c3f634f, type: 3}
-  - {fileID: 6607036591121390690, guid: c1367d5eb8491574c9512a62c6eb9d4f, type: 3}
+  - {fileID: 2757491738497546081, guid: bd4d69bdca0809c47b2c6b16f8d4819a, type: 3}
+  - {fileID: 99940278666699506, guid: 0d652dcc0555bb244bf780c156e309ea, type: 3}
+  - {fileID: 8919095134026881678, guid: 942b989316dc30248ada0ac47aba2dae, type: 3}
   spawnLocation:
   - {fileID: 1298367945}
   - {fileID: 784225012}
@@ -2658,6 +2658,7 @@ GameObject:
   - component: {fileID: 1811211765}
   - component: {fileID: 1811211768}
   - component: {fileID: 1811211769}
+  - component: {fileID: 1811211770}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2739,6 +2740,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterPrefab: {fileID: 1757248004669818144, guid: ed897536f92b75b4fb55040d83033a7b, type: 3}
+--- !u!114 &1811211770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1811211764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124a67deff35fdf41a30b760c1c5db89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1884429636
 GameObject:
   m_ObjectHideFlags: 0
