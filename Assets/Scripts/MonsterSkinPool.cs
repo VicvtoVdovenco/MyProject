@@ -69,8 +69,8 @@ public class MonsterSkinPool : MonoBehaviour
 
     public void ReturnMonsterSkin(MonsterSkin monsterSkin)
     {
-        monsterSkin.gameObject.SetActive(false);
         monsterSkin.gameObject.transform.SetParent(monsterSkinsContainer.transform);
+        monsterSkin.gameObject.SetActive(false);
         //monsterSkinsFree.Push(monsterSkin);
     }
 }

@@ -29,7 +29,7 @@ public class Monster : MonoBehaviour
     [SerializeField] Transform damageTextPos;
     [SerializeField] ParticleSystem getHitParticles;
 
-    public void Load()
+    public void Reload()
     {
         col = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
@@ -110,6 +110,7 @@ public class Monster : MonoBehaviour
 
     private void ReturnToPool()
     {
+        Destroy(monsterSkin.gameObject);
         monsterSkin = null;
         MonsterPool.instance.ReturnMonster(this);
     }
