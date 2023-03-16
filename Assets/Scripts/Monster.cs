@@ -85,7 +85,11 @@ public class Monster : MonoBehaviour
 
         getHitParticles.Play();
         currentHealth -= towerDamage;
-        if (currentHealth <= 0) Death();
+        if (currentHealth <= 0)
+        {
+            Death();
+            monsterSkin.isPooled = true;
+        }
         healthFG.fillAmount = (float)currentHealth / maxHealth;
     }
 
@@ -110,8 +114,9 @@ public class Monster : MonoBehaviour
 
     private void ReturnToPool()
     {
-        MonsterPool.instance.ReturnMonster(this);
+        MonsterSkinPool.instance.ReturnMonsterSkin(monsterSkin);
         monsterSkin = null;
+        MonsterPool.instance.ReturnMonster(this);
     }
 }
 
