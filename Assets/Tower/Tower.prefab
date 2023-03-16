@@ -183,7 +183,7 @@ MonoBehaviour:
   speed: 50
   bulletSpawnPosition: {fileID: 87280137228119623}
   fireParticles: {fileID: 7656653769504521588}
-  damage: 1
+  damage: 10
   critChance: 20
   critDamage: 100
   fireSound: {fileID: 8300000, guid: 565002671895af24fb1774d7d214e4e3, type: 3}

@@ -67,22 +67,21 @@ public class Level : MonoBehaviour
 
         for (int j = 0; j < spawnWaves[i].numberOfMonsters; j++)
         {
-            int spawnIndex = URandom.Range(0, spawnLocation.Length);            
+            int spawnIndex = URandom.Range(0, spawnLocation.Length);
 
             Monster monster = MonsterPool.instance.GetMonster();
             monster.gameObject.transform.position = spawnLocation[spawnIndex].position;
             monster.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
 
             MonsterSkin monsterSkinComponent = monster.GetComponentInChildren<MonsterSkin>();
-            if (monsterSkinComponent != null)
-            {
-                Debug.Log("Found a skin!");
-            }
 
             if (monsterStatsDict.TryGetValue(spawnWaves[i].monsterType, out SOMonsterStats stats))
             {
                 monster.monsterStats = stats;
             }
+
+            Debug.Log(monster.monsterStats.MonsterType + " " + spawnIndex + "  " + spawnLocation[spawnIndex].position);
+
 
             NavAgentController agent = monster.GetComponent<NavAgentController>();
             agent.SetNavDestination(_destinations[spawnIndex].transform.position);

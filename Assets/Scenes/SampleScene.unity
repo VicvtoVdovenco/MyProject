@@ -235,7 +235,7 @@ MonoBehaviour:
     spawnOffset: 2
     initialOffset: 0
   - monsterType: 1
-    numberOfMonsters: 10
+    numberOfMonsters: 5
     spawnOffset: 2
     initialOffset: 1
   - monsterType: 2
