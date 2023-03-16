@@ -78,9 +78,7 @@ public class Level : MonoBehaviour
             if (monsterStatsDict.TryGetValue(spawnWaves[i].monsterType, out SOMonsterStats stats))
             {
                 monster.monsterStats = stats;
-            }
-
-            Debug.Log(monster.monsterStats.MonsterType + " " + spawnIndex + "  " + spawnLocation[spawnIndex].position);
+            }           
 
 
             NavAgentController agent = monster.GetComponent<NavAgentController>();
@@ -88,11 +86,14 @@ public class Level : MonoBehaviour
 
             monster.Reload();
 
+
+
             MonsterSkin monsterSkin = MonsterSkinPool.instance.GetMonsterSkin(monster.monsterStats.MonsterType);
             GameObject monsterSkinGO = Instantiate(monsterSkin.gameObject, monster.transform);
             monsterSkinGO.transform.SetParent(monster.gameObject.transform);
             monster.monsterSkin = monsterSkinGO.GetComponent<MonsterSkin>();
 
+            Debug.Log(monster.monsterStats.MonsterType + " " + spawnIndex + "  " + spawnLocation[spawnIndex].position + monster.gameObject.transform.position);
 
             yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
         }
