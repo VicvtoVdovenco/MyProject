@@ -110,9 +110,8 @@ public class Monster : MonoBehaviour
 
     private void ReturnToPool()
     {
-        Destroy(monsterSkin.gameObject);
-        monsterSkin = null;
         MonsterPool.instance.ReturnMonster(this);
+        monsterSkin = null;
     }
 }
 
