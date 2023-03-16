@@ -231,15 +231,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWaves:
   - monsterType: 0
-    numberOfMonsters: 5
+    numberOfMonsters: 10
     spawnOffset: 2
     initialOffset: 0
   - monsterType: 1
-    numberOfMonsters: 3
-    spawnOffset: 5
-    initialOffset: 3
+    numberOfMonsters: 10
+    spawnOffset: 2
+    initialOffset: 1
   - monsterType: 2
-    numberOfMonsters: 3
+    numberOfMonsters: 5
     spawnOffset: 6
     initialOffset: 3
   monsterPrefabs:
@@ -553,6 +553,7 @@ GameObject:
   - component: {fileID: 255946863}
   - component: {fileID: 255946866}
   - component: {fileID: 255946865}
+  - component: {fileID: 255946867}
   m_Layer: 0
   m_Name: GateWall (9)
   m_TagString: Untagged
@@ -625,6 +626,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 255946862}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &255946867
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 255946862}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &362858754
 GameObject:
   m_ObjectHideFlags: 0
@@ -712,7 +729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &641105125
 Transform:
   m_ObjectHideFlags: 0
@@ -901,6 +918,7 @@ GameObject:
   - component: {fileID: 770128538}
   - component: {fileID: 770128541}
   - component: {fileID: 770128540}
+  - component: {fileID: 770128542}
   m_Layer: 0
   m_Name: GateWall (8)
   m_TagString: Untagged
@@ -973,6 +991,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 770128537}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &770128542
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 770128537}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &784225011
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1049,7 @@ GameObject:
   - component: {fileID: 960327659}
   - component: {fileID: 960327662}
   - component: {fileID: 960327661}
+  - component: {fileID: 960327663}
   m_Layer: 0
   m_Name: GateWall (7)
   m_TagString: Untagged
@@ -1087,6 +1122,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 960327658}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &960327663
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 960327658}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2095,6 +2146,7 @@ GameObject:
   - component: {fileID: 1610732239}
   - component: {fileID: 1610732242}
   - component: {fileID: 1610732241}
+  - component: {fileID: 1610732243}
   m_Layer: 0
   m_Name: GateWall (5)
   m_TagString: Untagged
@@ -2167,6 +2219,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1610732238}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1610732243
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1610732238}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1641687669
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2240,6 +2308,7 @@ GameObject:
   - component: {fileID: 1682377769}
   - component: {fileID: 1682377772}
   - component: {fileID: 1682377771}
+  - component: {fileID: 1682377773}
   m_Layer: 0
   m_Name: GateWall (6)
   m_TagString: Untagged
@@ -2312,6 +2381,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1682377768}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1682377773
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682377768}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &1744342628
 GameObject:
   m_ObjectHideFlags: 0
@@ -2863,6 +2948,7 @@ GameObject:
   - component: {fileID: 1957044134}
   - component: {fileID: 1957044137}
   - component: {fileID: 1957044136}
+  - component: {fileID: 1957044138}
   m_Layer: 0
   m_Name: GateWall (4)
   m_TagString: Untagged
@@ -2935,6 +3021,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1957044133}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!208 &1957044138
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1957044133}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &1972609739
 PrefabInstance:
   m_ObjectHideFlags: 0

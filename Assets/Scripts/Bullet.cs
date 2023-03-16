@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     float timer = 0f;
     float damage = 0;
 
-    bool isMonsterHit = false;
+    //bool isMonsterHit = false;
     bool isCrit = false;
 
     [SerializeField] GameObject _gameObject;
@@ -31,7 +31,6 @@ public class Bullet : MonoBehaviour
         timer = 0f;
     }
 
-    //tempstuff
 
     private void Awake()
     {

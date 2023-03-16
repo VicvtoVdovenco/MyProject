@@ -39,6 +39,7 @@ public class MonsterSkin : MonoBehaviour
     private void ReturnToPool()
     {
         isPooled = true;
+        MonsterSkinPool.instance.ReturnMonsterSkin(this);
     }
 
 }

@@ -29,15 +29,15 @@ public class MonsterSkinPool : MonoBehaviour
             return;
         }
 
-        //for (int i = 0; i < poolSize; i++)
-        //{
-        //    CreateInstance();
-        //}
+
 
         MonsterSkin[] allMonsterSkins = Resources.LoadAll<MonsterSkin>("MonsterSkins");
 
         foreach (MonsterSkin monsterSkin in allMonsterSkins)
         {
+            MonsterSkin monsterSkinGO = Instantiate(monsterSkin, monsterSkinsContainer.transform);
+            monsterSkinGO.gameObject.SetActive(false);
+            monsterSkinGO.gameObject.transform.SetParent(monsterSkinsContainer.transform);
             monsterSkinsDict.Add(monsterSkin.MonsterType, monsterSkin);
         }
 
@@ -51,13 +51,16 @@ public class MonsterSkinPool : MonoBehaviour
         {
             monsterSkin = skin;
         }
-
-
-        //if (monsterSkinsFree.Count == 0)
-        //{
-        //    CreateInstance();
-        //}
-
+        else
+        {
+            MonsterSkin prefab = Resources.Load<MonsterSkin>("MonsterSkins/" + monsterType.ToString());
+            if (prefab != null)
+            {
+                monsterSkin = Instantiate(prefab, monsterSkinsContainer.transform);
+                monsterSkin.gameObject.SetActive(false);
+                monsterSkinsDict.Add(monsterType, monsterSkin);
+            }
+        }
         //monsterSkin = monsterSkinsFree.Pop();
         monsterSkin.gameObject.SetActive(true);
 
@@ -67,15 +70,7 @@ public class MonsterSkinPool : MonoBehaviour
     public void ReturnMonsterSkin(MonsterSkin monsterSkin)
     {
         monsterSkin.gameObject.SetActive(false);
+        monsterSkin.gameObject.transform.SetParent(monsterSkinsContainer.transform);
         //monsterSkinsFree.Push(monsterSkin);
     }
-
-    //void CreateInstance()
-    //{
-    //    MonsterSkin skin = Instantiate(monsterSkin);
-    //    skin.transform.SetParent(monsterContainer.transform);
-    //    skin.gameObject.SetActive(false);
-    //    monstersAll.Push(skin);
-    //    monstersFree.Push(skin);
-    //}
 }

@@ -30,6 +30,7 @@ public class Level : MonoBehaviour
 
     public UnityEvent levelStarted = new UnityEvent();
 
+
     private void Awake()
     {
         SOMonsterStats[] allMonsterStats = Resources.LoadAll<SOMonsterStats>("SO/MonsterStats");
@@ -68,8 +69,6 @@ public class Level : MonoBehaviour
         {
             int spawnIndex = URandom.Range(0, spawnLocation.Length);
 
-            //GameObject monsterPrefab = monsterPrefabs[(int)spawnWaves[i].monsterType];
-
             Monster monster = MonsterPool.instance.GetMonster();
             monster.gameObject.transform.position = spawnLocation[spawnIndex].position;
             monster.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
@@ -78,29 +77,19 @@ public class Level : MonoBehaviour
             {
                 monster.monsterStats = stats;
             }
+
+            monster.Load();
+
             MonsterSkin monsterSkin = MonsterSkinPool.instance.GetMonsterSkin(monster.monsterStats.MonsterType);
             GameObject monsterSkinGO = Instantiate(monsterSkin.gameObject, monster.transform);
+            monsterSkinGO.transform.SetParent(monster.gameObject.transform);
             monster.monsterSkin = monsterSkinGO.GetComponent<MonsterSkin>();
-            //monsterSkinGO.gameObject.transform.SetParent(monster.transform);
-            //GameObject monsterSkin = Instantiate(stats.Skin, monster.gameObject.transform);
-            //monsterSkin.transform.localPosition = Vector3.zero;
 
-            NavAgentController agentScript = monster.GetComponent<NavAgentController>();
-            agentScript.agentDestination = _destinations[spawnIndex].transform;
+            NavAgentController agent = monster.GetComponent<NavAgentController>();
+            agent.SetNavDestination(_destinations[spawnIndex].transform.position);
             yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
         }
-
-        //for (int j = 0; j < spawnWaves[i].numberOfMonsters; j++)
-        //{
-        //    int spawnIndex = URandom.Range(0, spawnLocation.Length);
-        //    GameObject monsterPrefab = monsterPrefabs[(int)spawnWaves[i].monsterType];
-        //    GameObject monster = Instantiate(monsterPrefab, spawnLocation[spawnIndex].position, Quaternion.Euler(0, 180f, 0));
-        //    NavAgentController agentScript = monster.GetComponent<NavAgentController>();
-        //    agentScript.agentDestination = _destinations[spawnIndex].transform;
-        //    yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
-        //}
     }
-
 }
 
 

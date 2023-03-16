@@ -19,8 +19,7 @@ public class Monster : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float damage;
     [SerializeField] float maxHealth;
-    private float currentHealth;
-    //private Animator animator;
+    [SerializeField] float currentHealth;
     private bool isGetHit;
     private float getHitChance = 25;
     Collider col;
@@ -30,21 +29,27 @@ public class Monster : MonoBehaviour
     [SerializeField] Transform damageTextPos;
     [SerializeField] ParticleSystem getHitParticles;
 
-
-    void Start()
+    public void Load()
     {
-        moveSpeed = monsterStats.MoveSpeed;
+        col = GetComponent<Collider>();
+        agent = GetComponent<NavMeshAgent>();
+
         damage = monsterStats.Damage;
         maxHealth = monsterStats.MaxHealth;
-
-        agent = GetComponent<NavMeshAgent>();
+        moveSpeed = monsterStats.MoveSpeed;
         agent.radius = monsterStats.NavRadius;
-        agent.speed = moveSpeed;
         agent.avoidancePriority = monsterStats.NavPriority;
-        col = GetComponent<Collider>();
+
         currentHealth = maxHealth;
+        healthFG.fillAmount = (float)currentHealth / maxHealth;
+
+        agent.speed = moveSpeed;
+
+        col.enabled = true;
+
         canvasRect.forward = MainCam.Instance.transform.forward;
     }
+
     private void Update()
     {
         if (monsterSkin.isPooled) ReturnToPool();
@@ -105,6 +110,7 @@ public class Monster : MonoBehaviour
 
     private void ReturnToPool()
     {
+        monsterSkin = null;
         MonsterPool.instance.ReturnMonster(this);
     }
 }
