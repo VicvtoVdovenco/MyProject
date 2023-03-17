@@ -68,6 +68,7 @@ public class Tower : MonoBehaviour
 
         bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(damage, critChance, critDamage), isCrit);
 
+        animator.SetInteger("state", 2);
         animator.SetInteger("state", 1);
         fireParticles.Play();
         audioSource.PlayOneShot(fireSound);
@@ -106,6 +107,16 @@ public class Tower : MonoBehaviour
         for (int i = 0; i < renderers.Length; i++)
         {
             renderers[i].material.color = unselectedColor;
+        }
+    }
+
+    private void OnMouseDown()
+    {
+        timer = Mathf.Infinity;
+        AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
+        if (stateInfo.IsName("Fire"))
+        {
+            animator.SetInteger("state", 3);
         }
     }
 }
