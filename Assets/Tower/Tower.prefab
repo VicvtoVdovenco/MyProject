@@ -142,6 +142,7 @@ GameObject:
   - component: {fileID: 1662690538766562466}
   - component: {fileID: 8252509022551630228}
   - component: {fileID: 1780702654275890194}
+  - component: {fileID: 8751415218015163894}
   - component: {fileID: 6047968050360996070}
   m_Layer: 6
   m_Name: Tower
@@ -188,6 +189,10 @@ MonoBehaviour:
   critDamage: 100
   fireSound: {fileID: 8300000, guid: 565002671895af24fb1774d7d214e4e3, type: 3}
   timer: 0
+  renderers:
+  - {fileID: 466951913522034574}
+  - {fileID: 7181128057708639549}
+  selectedColor: {r: 0.7137255, g: 1, b: 0.85033786, a: 0}
 --- !u!95 &1780702654275890194
 Animator:
   serializedVersion: 4
@@ -208,6 +213,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &8751415218015163894
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2804606684738684627}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 3}
+  m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!82 &6047968050360996070
 AudioSource:
   m_ObjectHideFlags: 0

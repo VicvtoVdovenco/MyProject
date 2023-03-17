@@ -231,15 +231,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWaves:
   - monsterType: 0
-    numberOfMonsters: 0
-    spawnOffset: 1
+    numberOfMonsters: 5
+    spawnOffset: 3
     initialOffset: 0
   - monsterType: 1
-    numberOfMonsters: 20
-    spawnOffset: 1
-    initialOffset: 0
+    numberOfMonsters: 10
+    spawnOffset: 1.5
+    initialOffset: 1
   - monsterType: 2
-    numberOfMonsters: 0
+    numberOfMonsters: 3
     spawnOffset: 6
     initialOffset: 3
   monsterPrefabs:

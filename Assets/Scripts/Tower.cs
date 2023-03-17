@@ -12,14 +12,21 @@ public class Tower : MonoBehaviour
     [SerializeField] private float critChance;
     [SerializeField] private float critDamage;
     [SerializeField] private AudioClip fireSound;
+    [SerializeField] private float timer;
+    [SerializeField] private Renderer[] renderers;
+    [SerializeField] private Color selectedColor;
+
+    private Color unselectedColor;
     private bool isCrit;
     private float rayCastDistance = 500f;
-    [SerializeField] private float timer;
     private Animator animator;
     private AudioSource audioSource;
 
+
+
     private void Start()
     {
+        unselectedColor = renderers[0].material.color;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
         timer = fireReload;
@@ -71,8 +78,6 @@ public class Tower : MonoBehaviour
         animator.SetInteger("state", 2);
     }
 
-
-
     private float CalculateDamage(float damage, float critChance, float critDamage)
     {
         isCrit = false;
@@ -86,5 +91,21 @@ public class Tower : MonoBehaviour
         }
 
         return finalDamage;
+    }
+
+    void OnMouseEnter()
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = selectedColor;
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = unselectedColor;
+        }
     }
 }
