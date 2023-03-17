@@ -36,7 +36,7 @@ public class MonsterSkin : MonoBehaviour
         return state.length;
     }
 
-    private void ReturnToPool()
+    private void ReturnSkinToPool()
     {
         isPooled = true;
         MonsterSkinPool.instance.ReturnMonsterSkin(this);

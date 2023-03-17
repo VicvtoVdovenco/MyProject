@@ -33,12 +33,13 @@ public class Monster : MonoBehaviour
     {
         col = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
+        agent.enabled = false;
+        agent.radius = monsterStats.NavRadius;
+        agent.avoidancePriority = monsterStats.NavPriority;
 
         damage = monsterStats.Damage;
         maxHealth = monsterStats.MaxHealth;
         moveSpeed = monsterStats.MoveSpeed;
-        agent.radius = monsterStats.NavRadius;
-        agent.avoidancePriority = monsterStats.NavPriority;
 
         currentHealth = maxHealth;
         healthFG.fillAmount = (float)currentHealth / maxHealth;
@@ -118,6 +119,8 @@ public class Monster : MonoBehaviour
         monsterSkin = null;
         MonsterPool.instance.ReturnMonster(this);
     }
+
+    
 }
 
 

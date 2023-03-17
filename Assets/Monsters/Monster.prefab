@@ -95,6 +95,7 @@ MonoBehaviour:
   moveSpeed: 0
   damage: 0
   maxHealth: 0
+  currentHealth: 0
   healthFG: {fileID: 5108052774699662421}
   canvasRect: {fileID: 5108052773967293884}
   damageTextPos: {fileID: 7651701881287042168}
@@ -112,7 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 911560079515367995}
-  agentDestination: {fileID: 0}
 --- !u!195 &911560079515367995
 NavMeshAgent:
   m_ObjectHideFlags: 0

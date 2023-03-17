@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class MonsterPool : MonoBehaviour
 {
     public static MonsterPool instance;
@@ -52,6 +53,7 @@ public class MonsterPool : MonoBehaviour
 
     public void ReturnMonster(Monster monster)
     {
+
         monster.gameObject.SetActive(false);
         monstersFree.Push(monster);
     }
@@ -60,7 +62,8 @@ public class MonsterPool : MonoBehaviour
     {
         Monster monster = Instantiate(monsterPrefab);
         monster.transform.SetParent(monsterContainer.transform);
-        monster.gameObject.SetActive(false);
+        monster.transform.position = Vector3.zero;
+        monster.gameObject.SetActive(false);        
         monstersAll.Push(monster);
         monstersFree.Push(monster);
     }

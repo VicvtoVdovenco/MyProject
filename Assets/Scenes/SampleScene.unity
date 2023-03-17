@@ -231,15 +231,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWaves:
   - monsterType: 0
-    numberOfMonsters: 10
-    spawnOffset: 2
+    numberOfMonsters: 0
+    spawnOffset: 1
     initialOffset: 0
   - monsterType: 1
-    numberOfMonsters: 5
-    spawnOffset: 2
-    initialOffset: 1
+    numberOfMonsters: 20
+    spawnOffset: 1
+    initialOffset: 0
   - monsterType: 2
-    numberOfMonsters: 5
+    numberOfMonsters: 0
     spawnOffset: 6
     initialOffset: 3
   monsterPrefabs:
@@ -729,7 +729,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &641105125
 Transform:
   m_ObjectHideFlags: 0

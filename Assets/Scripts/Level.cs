@@ -70,30 +70,27 @@ public class Level : MonoBehaviour
             int spawnIndex = URandom.Range(0, spawnLocation.Length);
 
             Monster monster = MonsterPool.instance.GetMonster();
-            monster.gameObject.transform.position = spawnLocation[spawnIndex].position;
-            monster.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-
-            MonsterSkin monsterSkinComponent = monster.GetComponentInChildren<MonsterSkin>();
 
             if (monsterStatsDict.TryGetValue(spawnWaves[i].monsterType, out SOMonsterStats stats))
             {
                 monster.monsterStats = stats;
-            }           
-
-
-            NavAgentController agent = monster.GetComponent<NavAgentController>();
-            agent.SetNavDestination(_destinations[spawnIndex].transform.position);
+            }
 
             monster.Reload();
 
+            monster.gameObject.transform.position = spawnLocation[spawnIndex].position;
+            monster.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
 
+            NavMeshAgent agent = monster.GetComponent<NavMeshAgent>();
+            agent.enabled = true;
+
+            NavAgentController agentCTRL = monster.GetComponent<NavAgentController>();
+            agentCTRL.SetNavDestination(_destinations[spawnIndex].transform.position);            
 
             MonsterSkin monsterSkin = MonsterSkinPool.instance.GetMonsterSkin(monster.monsterStats.MonsterType);
             GameObject monsterSkinGO = Instantiate(monsterSkin.gameObject, monster.transform);
             monsterSkinGO.transform.SetParent(monster.gameObject.transform);
             monster.monsterSkin = monsterSkinGO.GetComponent<MonsterSkin>();
-
-            Debug.Log(monster.monsterStats.MonsterType + " " + spawnIndex + "  " + spawnLocation[spawnIndex].position + monster.gameObject.transform.position);
 
             yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
         }
