@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    float lifetime = 3f;
-    float timer = 0f;
-    float damage = 0;
+    private float lifetime = 3f;
+    private float timer = 0f;
+    private float damage = 0;
+    private Tower tower;
 
-    //bool isMonsterHit = false;
-    bool isCrit = false;
+    private bool isCrit = false;
+    private bool isBouncing = false;
 
     [SerializeField] GameObject _gameObject;
     [SerializeField] Transform _transform;
     [SerializeField] Rigidbody _rigibody;
+    [SerializeField] BouncingBullet bouncingBullet;
+    [SerializeField] GameObject baseSkin;
+    [SerializeField] GameObject bouncingSkin;
 
     System.Action<Bullet> callback;
 
@@ -21,13 +25,13 @@ public class Bullet : MonoBehaviour
     public Transform Transform => _transform;
     public Rigidbody Rigidbody => _rigibody;
 
-    private Tower tower;
 
-    public void Launch(System.Action<Bullet> callback, float damage, bool isCrit)
+    public void Launch(System.Action<Bullet> callback, float damage, bool isCrit, bool isBouncing)
     {
         this.callback = callback;
         this.damage = damage;
         this.isCrit = isCrit;
+        this.isBouncing = isBouncing;
         timer = 0f;
     }
 
@@ -55,6 +59,12 @@ public class Bullet : MonoBehaviour
         {
             Monster monster = collision.gameObject.GetComponent<Monster>();
             monster.ReceiveDamage(damage, isCrit);
+
+            if (isBouncing)
+            {
+                Instantiate(bouncingBullet, monster.transform.position, Quaternion.identity);
+            }
+
             callback?.Invoke(this);
         }
     }

@@ -51,6 +51,7 @@ MonoBehaviour:
   _gameObject: {fileID: 0}
   _transform: {fileID: 0}
   _rigibody: {fileID: 0}
+  bouncingBullet: {fileID: 3907982848450318251, guid: 61c1ae0fd89fe8b4da7d06768389ef4b, type: 3}
 --- !u!33 &1109170904990022844
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -21,6 +21,7 @@ public class Tower : MonoBehaviour
     private float rayCastDistance = 500f;
     private Animator animator;
     private AudioSource audioSource;
+    private bool isBouncing = false;
 
 
 
@@ -66,12 +67,13 @@ public class Tower : MonoBehaviour
         bullet.Rigidbody.velocity = Vector3.zero;
         bullet.Rigidbody.AddForce(Vector3.forward * speed, ForceMode.VelocityChange);
 
-        bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(damage, critChance, critDamage), isCrit);
+        bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(damage, critChance, critDamage), isCrit, isBouncing);
 
         animator.SetInteger("state", 2);
         animator.SetInteger("state", 1);
         fireParticles.Play();
         audioSource.PlayOneShot(fireSound);
+        isBouncing = false;
     }
 
     private void ToIdle()
@@ -112,6 +114,7 @@ public class Tower : MonoBehaviour
 
     private void OnMouseDown()
     {
+        isBouncing = true;
         timer = Mathf.Infinity;
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
         if (stateInfo.IsName("Fire"))
