@@ -89,7 +89,6 @@ public class Monster : MonoBehaviour
         if (currentHealth <= 0)
         {
             Death();
-            monsterSkin.isPooled = true;
         }
         healthFG.fillAmount = (float)currentHealth / maxHealth;
     }
