@@ -8,7 +8,7 @@ public class MonsterPool : MonoBehaviour
     public static MonsterPool instance;
     public Monster monsterPrefab;
 
-    private int poolSize = 20;
+    private int poolSize = 1;
     private Stack<Monster> monstersAll = new Stack<Monster>();
     private Stack<Monster> monstersFree = new Stack<Monster>();
 

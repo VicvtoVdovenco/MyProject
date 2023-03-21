@@ -39,10 +39,31 @@ public class Monster : MonoBehaviour
     {
         renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
         baseColors = new List<Color>();
+        StoreColors();
+    }
+
+    private void StoreColors()
+    {
         foreach (MeshRenderer r in renderers)
         {
             Color baseColor = r.material.color;
             baseColors.Add(baseColor);
+        }
+    }
+
+    private void RestoreColors()
+    {
+        for (int i = 0; i < baseColors.Count; i++)
+        {
+            renderers[i].material.color = baseColors[i];
+        }
+    }
+
+    private void SetBounceColor(Color color)
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = color;
         }
     }
 
@@ -67,6 +88,11 @@ public class Monster : MonoBehaviour
         col.enabled = true;
 
         canvasRect.forward = MainCam.Instance.transform.forward;
+
+        renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        baseColors.Clear();
+        StoreColors();
+        RestoreColors();
     }
 
     private void Update()
@@ -145,41 +171,12 @@ public class Monster : MonoBehaviour
     {
         StartCoroutine(WaitGetHitAnimation());
 
-        foreach (MeshRenderer r in renderers)
-        {
-            r.material.color = bounceHitColor;
-        }
-
+        SetBounceColor(bounceHitColor);
+        
         yield return new WaitForSeconds(bounceHitTime);
 
-        for (int i = 0; i < baseColors.Count; i++)
-        {
-            renderers[i].material.color = baseColors[i];
-        }
+        RestoreColors();
     }
+
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

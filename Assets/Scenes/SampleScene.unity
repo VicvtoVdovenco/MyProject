@@ -232,7 +232,7 @@ MonoBehaviour:
   spawnWaves:
   - monsterType: 0
     numberOfMonsters: 25
-    spawnOffset: 1
+    spawnOffset: 12
     initialOffset: 0
   - monsterType: 1
     numberOfMonsters: 0
