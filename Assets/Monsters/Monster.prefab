@@ -96,6 +96,8 @@ MonoBehaviour:
   damage: 0
   maxHealth: 0
   currentHealth: 0
+  bounceHitColor: {r: 1, g: 0.035849173, b: 0, a: 0}
+  bounceHitTime: 0.1
   healthFG: {fileID: 5108052774699662421}
   canvasRect: {fileID: 5108052773967293884}
   damageTextPos: {fileID: 7651701881287042168}

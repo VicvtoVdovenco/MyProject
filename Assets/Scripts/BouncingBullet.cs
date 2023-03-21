@@ -4,68 +4,78 @@ using UnityEngine;
 
 public class BouncingBullet : MonoBehaviour
 {
-    //public float speed = 10f;
-    //public float radius = 5f;
-    //public int maxBounces = 3;
-    //public float damage = 10f;
+    [SerializeField] float speed = 10f;
+    [SerializeField] float radius = 5f;
+    [SerializeField] int maxBounces = 3;
+    [SerializeField] float damage = 10f;
+    [SerializeField] float bounceDelay = 0.5f;
+    
 
-    //private int bounceCount = 0;
-    //private List<Transform> targets = new List<Transform>();
+    private int bounceCount;
+    private bool isReadyToBounce = false;
+    private List<Transform> targets = new List<Transform>();
 
-    //private void Start()
-    //{
-    //    // Populate the list of targets with the transforms of all enemies
-    //    // in the game world
-    //    foreach (GameObject enemy in EnemyPool.instance.enemyList)
-    //    {
-    //        targets.Add(enemy.transform);
-    //    }
-    //}
+    public void Initiate(Transform spawnTransform)
+    {
+        bounceCount = maxBounces;
+        foreach (Monster monster in MonsterPool.instance.GetActiveMonsters())
+        {
+            if (!monster.isDead) targets.Add(monster.transform);
+        }
+        targets.Remove(spawnTransform);
 
-    //private void Update()
-    //{
-    //    if (targets.Count == 0 || bounceCount == 0)
-    //    {
-    //        // No more targets or bounce count is zero, destroy the projectile
-    //        Destroy(gameObject);
-    //    }
-    //    else
-    //    {
-    //        // Move towards the closest target within the radius
-    //        Transform closestTarget = null;
-    //        float closestDistance = Mathf.Infinity;
-    //        foreach (Transform target in targets)
-    //        {
-    //            float distance = Vector3.Distance(transform.position, target.position);
-    //            if (distance < closestDistance && distance <= radius)
-    //            {
-    //                closestTarget = target;
-    //                closestDistance = distance;
-    //            }
-    //        }
-    //        if (closestTarget != null)
-    //        {
-    //            transform.position = Vector3.MoveTowards(transform.position, closestTarget.position, speed * Time.deltaTime);
-    //            if (Vector3.Distance(transform.position, closestTarget.position) < 0.1f)
-    //            {
-    //                // Target is hit, do damage and reduce bounce count
-    //                closestTarget.GetComponent<Enemy>().TakeDamage(damage);
-    //                bounceCount--;
-    //                // Remove the target from the list
-    //                targets.Remove(closestTarget);
-    //            }
-    //        }
-    //        else
-    //        {
-    //            // No target within the radius, destroy the projectile
-    //            Destroy(gameObject);
-    //        }
-    //    }
-    //}
+        StartCoroutine(BounceToNext());
+    }
 
-    //public void SetBounceCount(int count)
-    //{
-    //    bounceCount = count;
-    //}
+    private IEnumerator BounceToNext()
+    {
+        while (targets.Count > 0 && bounceCount > 0)
+        {
+            Transform target = FindNextTarget();   
 
+            if (target != null)
+            {
+                transform.rotation = Quaternion.LookRotation(target.position - transform.position);
+
+                while (Vector3.Distance(transform.position, target.position) > 0.1f)
+                {
+                    transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+                    yield return null;
+                }
+
+                Monster monster = target.GetComponent<Monster>();
+                if (monster.gameObject.activeInHierarchy)
+                {
+                    monster.ReceiveDamage(damage, false);
+                    monster.StartCoroutine(monster.BounceGetHit());
+                }
+
+                bounceCount--;
+                targets.Remove(target);
+                isReadyToBounce = true;
+            }
+
+            yield return new WaitForSeconds(bounceDelay);
+        }
+
+        Destroy(this.gameObject);
+    }
+
+    private Transform FindNextTarget()
+    {
+        Transform closestTarget = null;
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Transform target in targets)
+        {
+            float distance = Vector3.Distance(transform.position, target.gameObject.transform.position);
+            if (distance < closestDistance && distance <= radius)
+            {
+                closestDistance = distance;
+                closestTarget = target.transform;
+            }
+        }
+
+        return closestTarget;
+    }
 }

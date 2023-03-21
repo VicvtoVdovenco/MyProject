@@ -67,4 +67,19 @@ public class MonsterPool : MonoBehaviour
         monstersAll.Push(monster);
         monstersFree.Push(monster);
     }
+
+    public List<Monster> GetActiveMonsters()
+    {
+        List<Monster> activeMonsters = new List<Monster>();
+
+        foreach (Monster monster in monstersAll)
+        {
+            if (monster.gameObject.activeInHierarchy)
+            {
+                activeMonsters.Add(monster);
+            }
+        }
+
+        return activeMonsters;
+    }
 }

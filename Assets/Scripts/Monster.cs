@@ -20,17 +20,35 @@ public class Monster : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] float maxHealth;
     [SerializeField] float currentHealth;
-    private bool isGetHit;
-    private float getHitChance = 25;
-    Collider col;
-
+    [SerializeField] float bounceHitTime;
+    [SerializeField] Color bounceHitColor;
     [SerializeField] Image healthFG;
     [SerializeField] RectTransform canvasRect;
     [SerializeField] Transform damageTextPos;
     [SerializeField] ParticleSystem getHitParticles;
 
+    private MeshRenderer[] renderers;
+    [SerializeField] List<Color> baseColors;
+
+    private bool isGetHit;
+    public bool isDead = false;
+    private float getHitChance = 25;
+    private Collider col;
+
+    private void Start()
+    {
+        renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        baseColors = new List<Color>();
+        foreach (MeshRenderer r in renderers)
+        {
+            Color baseColor = r.material.color;
+            baseColors.Add(baseColor);
+        }
+    }
+
     public void Reload()
     {
+        isDead = false;
         col = GetComponent<Collider>();
         agent = GetComponent<NavMeshAgent>();
         agent.enabled = false;
@@ -72,7 +90,9 @@ public class Monster : MonoBehaviour
 
     public void ReceiveDamage(float towerDamage, bool isCrit)
     {
-        if (!isGetHit)
+        if (isDead) return;
+
+        if (!isGetHit && gameObject.activeInHierarchy)
         {
             float roll = Random.Range(0f, 100f);
             if (roll <= getHitChance) StartCoroutine(WaitGetHitAnimation());
@@ -88,6 +108,7 @@ public class Monster : MonoBehaviour
         currentHealth -= towerDamage;
         if (currentHealth <= 0)
         {
+            isDead = true;
             Death();
         }
         healthFG.fillAmount = (float)currentHealth / maxHealth;
@@ -105,6 +126,7 @@ public class Monster : MonoBehaviour
 
     private void Death()
     {
+        if (!gameObject.activeInHierarchy) return;
         monsterKilled.Invoke();
         agent.speed = 0f;
         moveSpeed = 0f;
@@ -119,7 +141,22 @@ public class Monster : MonoBehaviour
         MonsterPool.instance.ReturnMonster(this);
     }
 
-    
+    public IEnumerator BounceGetHit()
+    {
+        StartCoroutine(WaitGetHitAnimation());
+
+        foreach (MeshRenderer r in renderers)
+        {
+            r.material.color = bounceHitColor;
+        }
+
+        yield return new WaitForSeconds(bounceHitTime);
+
+        for (int i = 0; i < baseColors.Count; i++)
+        {
+            renderers[i].material.color = baseColors[i];
+        }
+    }
 }
 
 

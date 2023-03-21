@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] GameObject _gameObject;
     [SerializeField] Transform _transform;
     [SerializeField] Rigidbody _rigibody;
-    [SerializeField] BouncingBullet bouncingBullet;
+    [SerializeField] BouncingBullet bouncingBulletPrefab;
     [SerializeField] GameObject baseSkin;
     [SerializeField] GameObject bouncingSkin;
 
@@ -32,6 +32,8 @@ public class Bullet : MonoBehaviour
         this.damage = damage;
         this.isCrit = isCrit;
         this.isBouncing = isBouncing;
+        baseSkin.SetActive(!isBouncing);
+        bouncingSkin.SetActive(isBouncing);
         timer = 0f;
     }
 
@@ -62,7 +64,9 @@ public class Bullet : MonoBehaviour
 
             if (isBouncing)
             {
-                Instantiate(bouncingBullet, monster.transform.position, Quaternion.identity);
+                BouncingBullet bouncingBullet = Instantiate(bouncingBulletPrefab, monster.transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
+                bouncingBullet.Initiate(monster.transform);
+                monster.StartCoroutine(monster.BounceGetHit());
             }
 
             callback?.Invoke(this);

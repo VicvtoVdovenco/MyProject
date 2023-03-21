@@ -15,19 +15,31 @@ public class MonsterSkin : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void GetHitAnim()
+    private void SetAnimatorState(int state)
     {
-        animator.SetInteger("state", 2);
-    }
-
-    public void MoveAnim()
-    {
-        animator.SetInteger("state", 3);
+        if (animator.GetInteger("state") == 1 || state == 1)
+        {
+            animator.SetInteger("state", 1);
+        }
+        else
+        {
+            animator.SetInteger("state", state);
+        }
     }
 
     public void DeathAnim()
     {
-        animator.SetInteger("state", 1);
+        SetAnimatorState(1);
+    }
+
+    public void GetHitAnim()
+    {
+        SetAnimatorState(2);
+    }
+
+    public void MoveAnim()
+    {
+        SetAnimatorState(3);
     }
 
     public float AnimStateLength()
