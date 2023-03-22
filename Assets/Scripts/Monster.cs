@@ -30,8 +30,15 @@ public class Monster : MonoBehaviour
 
     public bool isDead = false;
     private bool isGetHit;
+    private bool isCrit;
     private float getHitChance = 25;
     private Collider col;
+    private SOPlayerStats playerStats;
+
+    private void Start()
+    {
+        playerStats = Player.Instance.playerStats;
+    }
 
     public void Reload()
     {
@@ -74,24 +81,34 @@ public class Monster : MonoBehaviour
         agent.speed = moveSpeed;
     }
 
-    public void ReceiveDamage(float towerDamage, bool isCrit)
+    public void ReceiveDamage(float incomingDamage)
     {
         if (isDead) return;
 
         if (!isGetHit && gameObject.activeInHierarchy)
         {
-            float roll = Random.Range(0f, 100f);
-            if (roll <= getHitChance) StartCoroutine(WaitGetHitAnimation());
+            float getHitRoll = Random.Range(0f, 100f);
+            if (getHitRoll <= getHitChance) StartCoroutine(WaitGetHitAnimation());
+        }
+
+        float finalDamage = incomingDamage;
+
+        isCrit = false;
+        float critRoll = Random.Range(0f, 100f);
+        if (critRoll <= playerStats.CritChance)
+        {
+            isCrit = true;
+            finalDamage = finalDamage * playerStats.CritDamage;
         }
 
         DamageText damageText = DamageTextPool.instance.GetDmgText();
         TextMeshProUGUI damageTextComponent = damageText.GetComponent<TextMeshProUGUI>();
-        damageTextComponent.text = towerDamage.ToString();
+        damageTextComponent.text = finalDamage.ToString();
         damageText.gameObject.SetActive(true);
-        damageText.Launch(DamageTextPool.instance.ReturnDmgText, towerDamage, isCrit, damageTextPos);
+        damageText.Launch(DamageTextPool.instance.ReturnDmgText, finalDamage, isCrit, damageTextPos);
 
         getHitParticles.Play();
-        currentHealth -= towerDamage;
+        currentHealth -= finalDamage;
         if (currentHealth <= 0)
         {
             isDead = true;

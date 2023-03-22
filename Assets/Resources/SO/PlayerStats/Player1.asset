@@ -15,4 +15,4 @@ MonoBehaviour:
   health: 100
   damage: 10
   critChance: 20
-  critDamage: 200
+  critDamage: 2

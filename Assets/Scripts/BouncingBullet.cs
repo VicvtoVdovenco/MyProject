@@ -4,21 +4,32 @@ using UnityEngine;
 
 public class BouncingBullet : MonoBehaviour
 {
-    [SerializeField] float damageMultiplier;
+    public float damageMultiplier;
+    //public static float DamageMultiplier;
+
     [SerializeField] float speed = 10f;
     [SerializeField] float radius = 5f;
     [SerializeField] int maxBounces = 3;
     [SerializeField] float bounceDelay = 0.5f;
 
-    public static float Damage;
     private int bounceCount;
-    //private bool isReadyToBounce = false;
     private List<Transform> targets = new List<Transform>();
+    private SOPlayerStats playerStats;
 
-    private void Awake()
+    //private void Awake()
+    //{
+    //    DamageMultiplier = damageMultiplier;
+    //}
+
+    private void Start()
     {
-        Damage = Player.Instance.playerStats.Damage * damageMultiplier / 100;
+        playerStats = Player.Instance.playerStats;
     }
+
+    //public float GetDamageMultiplier()
+    //{
+    //    return damageMultiplier;
+    //}
 
     public void Initiate(Transform spawnTransform)
     {
@@ -56,14 +67,13 @@ public class BouncingBullet : MonoBehaviour
                 Monster monster = target.GetComponent<Monster>();
                 if (monster.gameObject.activeInHierarchy)
                 {
-                    monster.ReceiveDamage(Damage, false);
+                    monster.ReceiveDamage(playerStats.Damage * damageMultiplier);
                     monster.StartCoroutine(monster.BounceGetHit());
                     monster.bounceHitParticles.Play();
                 }
 
                 bounceCount--;
                 targets.Remove(target);
-                //isReadyToBounce = true;
             }
 
             yield return new WaitForSeconds(bounceDelay);

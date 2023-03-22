@@ -6,10 +6,10 @@ public class Bullet : MonoBehaviour
 {
     private float lifetime = 3f;
     private float timer = 0f;
-    private float damage = 0;
     private Tower tower;
+    private SOPlayerStats playerStats;
 
-    private bool isCrit = false;
+    //private bool isCrit = false;
     private bool isBouncing = false;
 
     [SerializeField] GameObject _gameObject;
@@ -25,12 +25,15 @@ public class Bullet : MonoBehaviour
     public Transform Transform => _transform;
     public Rigidbody Rigidbody => _rigibody;
 
+    private void Start()
+    {
+        playerStats = Player.Instance.playerStats;
+    }
 
-    public void Launch(System.Action<Bullet> callback, float damage, bool isCrit, bool isBouncing)
+    public void Launch(System.Action<Bullet> callback, float damage, bool isBouncing)
     {
         this.callback = callback;
-        this.damage = damage;
-        this.isCrit = isCrit;
+        //this.isCrit = isCrit;
         this.isBouncing = isBouncing;
         baseSkin.SetActive(!isBouncing);
         bouncingSkin.SetActive(isBouncing);
@@ -65,14 +68,14 @@ public class Bullet : MonoBehaviour
 
             if (isBouncing)
             {
-                monster.ReceiveDamage(BouncingBullet.Damage, isCrit);
+                monster.ReceiveDamage(playerStats.Damage * bouncingBulletPrefab.damageMultiplier);
                 BouncingBullet bouncingBullet = Instantiate(bouncingBulletPrefab, monster.transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
                 bouncingBullet.Initiate(monster.transform);
                 monster.StartCoroutine(monster.BounceGetHit());
                 monster.bounceHitParticles.Play();
                 return;
             }
-            monster.ReceiveDamage(damage, isCrit);
+            monster.ReceiveDamage(playerStats.Damage);
         }
     }
 }

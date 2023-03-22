@@ -17,7 +17,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private Color selectedColor;
 
     private Color unselectedColor;
-    private bool isCrit;
+    //private bool isCrit;
     private float rayCastDistance = 500f;
     private Animator animator;
     private AudioSource audioSource;
@@ -67,7 +67,7 @@ public class Tower : MonoBehaviour
         bullet.Rigidbody.velocity = Vector3.zero;
         bullet.Rigidbody.AddForce(Vector3.forward * speed, ForceMode.VelocityChange);
 
-        bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(playerStats.Damage, playerStats.CritChance, playerStats.CritDamage), isCrit, isBouncing);
+        bullet.Launch(BulletPool.instance.ReturnBullet, playerStats.Damage, isBouncing);
 
         animator.SetInteger("state", 2);
         animator.SetInteger("state", 1);
@@ -81,20 +81,20 @@ public class Tower : MonoBehaviour
         animator.SetInteger("state", 2);
     }
 
-    private float CalculateDamage(float damage, float critChance, float critDamage)
-    {
-        isCrit = false;
-        float finalDamage = damage;
+    //private float CalculateDamage(float damage, float critChance, float critDamage)
+    //{
+    //    isCrit = false;
+    //    float finalDamage = damage;
 
-        float roll = Random.Range(0f, 100f);
-        if (roll <= critChance)
-        {
-            isCrit = true;
-            finalDamage += finalDamage * critDamage / 100;
-        }
+    //    float roll = Random.Range(0f, 100f);
+    //    if (roll <= critChance)
+    //    {
+    //        isCrit = true;
+    //        finalDamage = finalDamage * critDamage / 100;
+    //    }
 
-        return finalDamage;
-    }
+    //    return finalDamage;
+    //}
 
     void OnMouseEnter()
     {
