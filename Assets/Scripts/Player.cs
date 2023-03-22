@@ -6,31 +6,40 @@ using TMPro;
 
 public class Player : MonoBehaviour
 {
+    public static Player Instance { get; private set; }
+
     [SerializeField] TextMeshProUGUI playerHealthText;
     [SerializeField] Image playerHealthImage;
 
-    [SerializeField] float playerMaxHealth;
+    public SOPlayerStats playerStats;
+
     private float playerCurrentHealth;
     [HideInInspector] public float PlayerCurrentHealth => playerCurrentHealth;
-    
 
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
-        playerCurrentHealth = playerMaxHealth;
+        playerCurrentHealth = playerStats.Health;
         playerHealthText.text = playerCurrentHealth.ToString();
         Monster.monsterDealsDamageToPlayer.AddListener(PlayerTakeDamage);
     }
 
-    private void Update()
-    {
-
-    }
-
     private void CalculatePlayerHealth()
     {
-        playerHealthImage.fillAmount = playerCurrentHealth / playerMaxHealth;
-        playerHealthText.text = (playerCurrentHealth / playerMaxHealth * 100).ToString();
+        playerHealthImage.fillAmount = playerCurrentHealth / playerStats.Health;
+        playerHealthText.text = (playerCurrentHealth / playerStats.Health * 100).ToString();
     }
 
     private void PlayerTakeDamage(float damage)

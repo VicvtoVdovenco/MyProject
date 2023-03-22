@@ -26,46 +26,12 @@ public class Monster : MonoBehaviour
     [SerializeField] RectTransform canvasRect;
     [SerializeField] Transform damageTextPos;
     [SerializeField] ParticleSystem getHitParticles;
+    public ParticleSystem bounceHitParticles;
 
-    private MeshRenderer[] renderers;
-    [SerializeField] List<Color> baseColors;
-
-    private bool isGetHit;
     public bool isDead = false;
+    private bool isGetHit;
     private float getHitChance = 25;
     private Collider col;
-
-    private void Start()
-    {
-        renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-        baseColors = new List<Color>();
-        StoreColors();
-    }
-
-    private void StoreColors()
-    {
-        foreach (MeshRenderer r in renderers)
-        {
-            Color baseColor = r.material.color;
-            baseColors.Add(baseColor);
-        }
-    }
-
-    private void RestoreColors()
-    {
-        for (int i = 0; i < baseColors.Count; i++)
-        {
-            renderers[i].material.color = baseColors[i];
-        }
-    }
-
-    private void SetBounceColor(Color color)
-    {
-        for (int i = 0; i < renderers.Length; i++)
-        {
-            renderers[i].material.color = color;
-        }
-    }
 
     public void Reload()
     {
@@ -88,11 +54,6 @@ public class Monster : MonoBehaviour
         col.enabled = true;
 
         canvasRect.forward = MainCam.Instance.transform.forward;
-
-        renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
-        baseColors.Clear();
-        StoreColors();
-        RestoreColors();
     }
 
     private void Update()
@@ -111,7 +72,6 @@ public class Monster : MonoBehaviour
         isGetHit = false;
         monsterSkin.MoveAnim();
         agent.speed = moveSpeed;
-
     }
 
     public void ReceiveDamage(float towerDamage, bool isCrit)
@@ -171,12 +131,10 @@ public class Monster : MonoBehaviour
     {
         StartCoroutine(WaitGetHitAnimation());
 
-        SetBounceColor(bounceHitColor);
+        monsterSkin.SetBounceColor(bounceHitColor);
         
         yield return new WaitForSeconds(bounceHitTime);
 
-        RestoreColors();
+        monsterSkin.RestoreColors();
     }
-
-
 }

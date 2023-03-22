@@ -49,6 +49,7 @@ MonoBehaviour:
   monsterType: 2
   isPooled: 0
   animator: {fileID: 0}
+  baseColors: []
 --- !u!95 &4523017493083204587
 Animator:
   serializedVersion: 4

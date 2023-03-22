@@ -4,16 +4,21 @@ using UnityEngine;
 
 public class BouncingBullet : MonoBehaviour
 {
+    [SerializeField] float damageMultiplier;
     [SerializeField] float speed = 10f;
     [SerializeField] float radius = 5f;
     [SerializeField] int maxBounces = 3;
-    [SerializeField] float damage = 10f;
     [SerializeField] float bounceDelay = 0.5f;
-    
 
+    public static float Damage;
     private int bounceCount;
-    private bool isReadyToBounce = false;
+    //private bool isReadyToBounce = false;
     private List<Transform> targets = new List<Transform>();
+
+    private void Awake()
+    {
+        Damage = Player.Instance.playerStats.Damage * damageMultiplier / 100;
+    }
 
     public void Initiate(Transform spawnTransform)
     {
@@ -31,9 +36,14 @@ public class BouncingBullet : MonoBehaviour
     {
         while (targets.Count > 0 && bounceCount > 0)
         {
-            Transform target = FindNextTarget();   
+            Transform target = FindNextTarget();
 
-            if (target != null)
+            if (target == null)
+            {
+                Destroy(this.gameObject);
+                yield break;
+            }
+            else
             {
                 transform.rotation = Quaternion.LookRotation(target.position - transform.position);
 
@@ -46,13 +56,14 @@ public class BouncingBullet : MonoBehaviour
                 Monster monster = target.GetComponent<Monster>();
                 if (monster.gameObject.activeInHierarchy)
                 {
-                    monster.ReceiveDamage(damage, false);
+                    monster.ReceiveDamage(Damage, false);
                     monster.StartCoroutine(monster.BounceGetHit());
+                    monster.bounceHitParticles.Play();
                 }
 
                 bounceCount--;
                 targets.Remove(target);
-                isReadyToBounce = true;
+                //isReadyToBounce = true;
             }
 
             yield return new WaitForSeconds(bounceDelay);

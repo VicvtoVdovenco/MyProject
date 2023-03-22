@@ -21,6 +21,4 @@ public class SOMonsterStats : ScriptableObject
     public float NavRadius => navRadius;
     public int NavPriority => navPriority;
     public GameObject Skin => skin;
-
-
 }

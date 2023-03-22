@@ -9,8 +9,8 @@ public class Tower : MonoBehaviour
     [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private float damage;
-    [SerializeField] private float critChance;
-    [SerializeField] private float critDamage;
+    //[SerializeField] private float critChance;
+    //[SerializeField] private float critDamage;
     [SerializeField] private AudioClip fireSound;
     [SerializeField] private float timer;
     [SerializeField] private Renderer[] renderers;
@@ -22,11 +22,11 @@ public class Tower : MonoBehaviour
     private Animator animator;
     private AudioSource audioSource;
     private bool isBouncing = false;
-
-
+    private SOPlayerStats playerStats;
 
     private void Start()
     {
+        playerStats = Player.Instance.playerStats;
         unselectedColor = renderers[0].material.color;
         animator = GetComponent<Animator>();
         audioSource = GetComponent<AudioSource>();
@@ -67,7 +67,7 @@ public class Tower : MonoBehaviour
         bullet.Rigidbody.velocity = Vector3.zero;
         bullet.Rigidbody.AddForce(Vector3.forward * speed, ForceMode.VelocityChange);
 
-        bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(damage, critChance, critDamage), isCrit, isBouncing);
+        bullet.Launch(BulletPool.instance.ReturnBullet, CalculateDamage(playerStats.Damage, playerStats.CritChance, playerStats.CritDamage), isCrit, isBouncing);
 
         animator.SetInteger("state", 2);
         animator.SetInteger("state", 1);

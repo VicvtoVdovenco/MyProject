@@ -60,16 +60,19 @@ public class Bullet : MonoBehaviour
         if (collision.gameObject.tag == "Monster")
         {
             Monster monster = collision.gameObject.GetComponent<Monster>();
-            monster.ReceiveDamage(damage, isCrit);
+            callback?.Invoke(this);
+
 
             if (isBouncing)
             {
+                monster.ReceiveDamage(BouncingBullet.Damage, isCrit);
                 BouncingBullet bouncingBullet = Instantiate(bouncingBulletPrefab, monster.transform.position + new Vector3(0, 1f, 0), Quaternion.identity);
                 bouncingBullet.Initiate(monster.transform);
                 monster.StartCoroutine(monster.BounceGetHit());
+                monster.bounceHitParticles.Play();
+                return;
             }
-
-            callback?.Invoke(this);
+            monster.ReceiveDamage(damage, isCrit);
         }
     }
 }

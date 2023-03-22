@@ -231,15 +231,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnWaves:
   - monsterType: 0
-    numberOfMonsters: 25
-    spawnOffset: 12
+    numberOfMonsters: 10
+    spawnOffset: 3.5
     initialOffset: 0
   - monsterType: 1
-    numberOfMonsters: 0
+    numberOfMonsters: 20
     spawnOffset: 1.5
     initialOffset: 1
   - monsterType: 2
-    numberOfMonsters: 0
+    numberOfMonsters: 5
     spawnOffset: 6
     initialOffset: 3
   monsterPrefabs:
@@ -1969,7 +1969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealthText: {fileID: 1744342630}
   playerHealthImage: {fileID: 1279159582}
-  playerMaxHealth: 100
+  playerStats: {fileID: 11400000, guid: dfd30c09344dafa428cbc36b11bad33d, type: 2}
 --- !u!1 &1494126918
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,9 +10,41 @@ public class MonsterSkin : MonoBehaviour
 
     [SerializeField] Animator animator;
 
+    private MeshRenderer[] renderers;
+    [SerializeField] List<Color> baseColors;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
+
+        renderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+        baseColors = new List<Color>();
+        StoreColors();
+    }
+
+    private void StoreColors()
+    {
+        foreach (MeshRenderer r in renderers)
+        {
+            Color baseColor = r.material.color;
+            baseColors.Add(baseColor);
+        }
+    }
+
+    public void SetBounceColor(Color color)
+    {
+        for (int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].material.color = color;
+        }
+    }
+
+    public void RestoreColors()
+    {
+        for (int i = 0; i < baseColors.Count; i++)
+        {
+            renderers[i].material.color = baseColors[i];
+        }
     }
 
     private void SetAnimatorState(int state)
