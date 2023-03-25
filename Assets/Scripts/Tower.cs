@@ -9,15 +9,12 @@ public class Tower : MonoBehaviour
     [SerializeField] private Transform bulletSpawnPosition;
     [SerializeField] private ParticleSystem fireParticles;
     [SerializeField] private float damage;
-    //[SerializeField] private float critChance;
-    //[SerializeField] private float critDamage;
     [SerializeField] private AudioClip fireSound;
     [SerializeField] private float timer;
     [SerializeField] private Renderer[] renderers;
     [SerializeField] private Color selectedColor;
 
     private Color unselectedColor;
-    //private bool isCrit;
     private float rayCastDistance = 500f;
     private Animator animator;
     private AudioSource audioSource;
@@ -81,22 +78,7 @@ public class Tower : MonoBehaviour
         animator.SetInteger("state", 2);
     }
 
-    //private float CalculateDamage(float damage, float critChance, float critDamage)
-    //{
-    //    isCrit = false;
-    //    float finalDamage = damage;
-
-    //    float roll = Random.Range(0f, 100f);
-    //    if (roll <= critChance)
-    //    {
-    //        isCrit = true;
-    //        finalDamage = finalDamage * critDamage / 100;
-    //    }
-
-    //    return finalDamage;
-    //}
-
-    void OnMouseEnter()
+    public void TargetTower()
     {
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -104,7 +86,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void OnMouseExit()
+    public void UntargetTower()
     {
         for (int i = 0; i < renderers.Length; i++)
         {
@@ -112,7 +94,7 @@ public class Tower : MonoBehaviour
         }
     }
 
-    private void OnMouseDown()
+    public void BounceShoot()
     {
         isBouncing = true;
         timer = Mathf.Infinity;

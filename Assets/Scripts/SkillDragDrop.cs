@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-//using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,6 +9,11 @@ public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     private GameObject dragObject;
     private Vector3 originalPosition;
     private GraphicRaycaster raycaster;
+    [SerializeField] bool isTowerTargeted = false;
+    [SerializeField] bool isAboveTower = false;
+    private Tower tower = null;
+
+
 
     private void Start()
     {
@@ -40,6 +44,34 @@ public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         {
             transform.position = eventData.position;
         }
+        
+        Ray ray = Camera.main.ScreenPointToRay(eventData.position);
+        RaycastHit[] hits = Physics.RaycastAll(ray);
+
+        foreach (RaycastHit hit in hits)
+        {
+            if (hit.collider.CompareTag("Tower"))
+            {
+                isAboveTower = false;
+
+                if (!isTowerTargeted)
+                {
+                    tower = hit.collider.GetComponent<Tower>();
+                    tower.TargetTower();
+                    isTowerTargeted = true;
+                }
+                break;
+            }
+        }
+
+        if (isTowerTargeted && isAboveTower)
+        {
+            if (tower != null) tower.UntargetTower();
+            tower = null;
+            isTowerTargeted = false;
+        }
+
+        isAboveTower = true;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -48,11 +80,11 @@ public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
         {
             PointerEventData pointerEventData = new PointerEventData(EventSystem.current);
             pointerEventData.position = eventData.position;
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(pointerEventData, raycastResults);
+            List<RaycastResult> results = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(pointerEventData, results);
 
             bool isSkillPanel = false;
-            foreach (RaycastResult result in raycastResults)
+            foreach (RaycastResult result in results)
             {
                 if (result.gameObject.CompareTag("Skill Panel"))
                 {
@@ -67,6 +99,13 @@ public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
             }
             else
             {
+                Destroy(gameObject);
+            }
+
+            if (isTowerTargeted)
+            {
+                tower.BounceShoot();
+                tower.UntargetTower();
                 Destroy(gameObject);
             }
 

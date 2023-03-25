@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 6047968050360996070}
   m_Layer: 6
   m_Name: Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -185,8 +185,6 @@ MonoBehaviour:
   bulletSpawnPosition: {fileID: 87280137228119623}
   fireParticles: {fileID: 7656653769504521588}
   damage: 10
-  critChance: 20
-  critDamage: 100
   fireSound: {fileID: 8300000, guid: 565002671895af24fb1774d7d214e4e3, type: 3}
   timer: 0
   renderers:
