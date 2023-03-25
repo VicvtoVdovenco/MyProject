@@ -7,6 +7,8 @@ TagManager:
   - Portal
   - Monster
   - Bullet
+  - Skill Panel
+  - Skill
   layers:
   - Default
   - TransparentFX
