@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler
 {
+    public static UnityEvent<float> skillUsed = new UnityEvent<float>();
+
     private GameObject dragObject;
     private Vector3 originalPosition;
     private GraphicRaycaster raycaster;
@@ -102,9 +105,10 @@ public class SkillDragDrop : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
                 Destroy(gameObject);
             }
 
-            if (isTowerTargeted)
+            if (isTowerTargeted && Player.Instance.PlayerCurrentMana >= 2)
             {
                 tower.BounceShoot();
+                skillUsed.Invoke(2);
                 tower.UntargetTower();
                 Destroy(gameObject);
             }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BouncingBullet : MonoBehaviour
 {
+    public float manaCost;
     public float damageMultiplier;
     //public static float DamageMultiplier;
 

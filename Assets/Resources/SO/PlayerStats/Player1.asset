@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: Player1
   m_EditorClassIdentifier: 
   health: 100
+  mana: 10
+  manaRegen: 0.3
   damage: 10
   critChance: 20
   critDamage: 2

@@ -29,8 +29,6 @@ public class MonsterSkinPool : MonoBehaviour
             return;
         }
 
-
-
         MonsterSkin[] allMonsterSkins = Resources.LoadAll<MonsterSkin>("MonsterSkins");
 
         foreach (MonsterSkin monsterSkin in allMonsterSkins)
@@ -40,7 +38,6 @@ public class MonsterSkinPool : MonoBehaviour
             monsterSkinGO.gameObject.transform.SetParent(monsterSkinsContainer.transform);
             monsterSkinsDict.Add(monsterSkin.MonsterType, monsterSkin);
         }
-
     }
 
     public MonsterSkin GetMonsterSkin(MonsterType monsterType)
