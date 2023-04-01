@@ -22,8 +22,8 @@ public class MonsterSkinPool : MonoBehaviour
         monsterSkinsSampler = new GameObject("MonsterSkin Sampler");
         monsterSkinsSampler.transform.SetParent(gameManager.transform);
 
-        monsterSkinsContainer = new GameObject("MonsterSkin Sampler");
-        monsterSkinsContainer.transform.SetParent(gameManager.transform);
+        //monsterSkinsContainer = new GameObject("MonsterSkin Sampler");
+        //monsterSkinsContainer.transform.SetParent(gameManager.transform);
 
         if (instance == null)
         {
@@ -42,7 +42,7 @@ public class MonsterSkinPool : MonoBehaviour
             MonsterSkin monsterSkinGO = Instantiate(monsterSkin, monsterSkinsSampler.transform);
             monsterSkinGO.gameObject.SetActive(false);
             monsterSkinGO.gameObject.transform.SetParent(monsterSkinsSampler.transform);
-            monsterSkinsDict.Add(monsterSkin.MonsterType, monsterSkin);
+            monsterSkinsDict.Add(monsterSkin.MonsterType, monsterSkinGO);
         }
     }
 
