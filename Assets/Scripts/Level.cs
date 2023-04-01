@@ -88,9 +88,7 @@ public class Level : MonoBehaviour
             agentCTRL.SetNavDestination(_destinations[spawnIndex].transform.position);            
 
             MonsterSkin monsterSkin = MonsterSkinPool.instance.GetMonsterSkin(monster.monsterStats.MonsterType);
-            GameObject monsterSkinGO = Instantiate(monsterSkin.gameObject, monster.transform);
-            monsterSkinGO.transform.SetParent(monster.gameObject.transform);
-            monster.monsterSkin = monsterSkinGO.GetComponent<MonsterSkin>();
+            monsterSkin.transform.SetParent(monster.gameObject.transform);
 
             yield return new WaitForSeconds(spawnWaves[i].spawnOffset);
         }

@@ -65,7 +65,7 @@ public class Monster : MonoBehaviour
 
     private void Update()
     {
-        if (monsterSkin.isPooled) ReturnToPool();
+        //if (monsterSkin.isPooled) ReturnToPool();
     }
 
     private IEnumerator WaitGetHitAnimation()
